@@ -1,0 +1,1477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust Travel Studio & Concierge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+  :root {
+    --primary: #0d9488;
+    --primary-dark: #0f766e;
+    --primary-light: #ccfbf1;
+    --primary-subtle: #f0fdfa;
+    --accent: #f59e0b;
+    --accent-dark: #d97706;
+    --bg-page: #f1f5f9;
+    --bg-surface: #ffffff;
+    --bg-card: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --border-subtle: #f1f5f9;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* --- Top Navigation Header --- */
+  header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 20;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .brand-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
+    color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(13, 148, 136, 0.25);
+  }
+
+  .brand-text h1 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .brand-text p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: 50%;
+    background: #10b981;
+    opacity: 0.5;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    70% { transform: scale(2.2); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+
+  /* --- Main Portal Layout (Split Dashboard) --- */
+  .app-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    height: calc(100vh - 65px);
+  }
+
+  /* --- Left Panel: Travel Studio & Tools --- */
+  .studio-panel {
+    width: 380px;
+    min-width: 380px;
+    background: #ffffff;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 980px) {
+    .studio-panel { display: none; }
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  /* Studio Creator Card */
+  .creator-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 1.15rem;
+    box-shadow: 0 8px 16px -4px rgba(15, 23, 42, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .creator-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .creator-header span.badge {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .creator-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .creator-card p {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .creator-input-group {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.35rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .creator-input-group input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .creator-input-group input::placeholder {
+    color: #64748b;
+  }
+
+  .btn-creator {
+    background: #0d9488;
+    color: #ffffff;
+    border: none;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  .btn-creator:hover {
+    background: #14b8a6;
+    transform: translateY(-1px);
+  }
+
+  .creator-actions-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .btn-sub-action {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+
+  .btn-sub-action:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #38bdf8;
+    color: #ffffff;
+  }
+
+  /* Destination Showcase Cards */
+  .destination-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .dest-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem;
+    background: #ffffff;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+
+  .dest-card:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .dest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .dest-title-group h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .dest-title-group p {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  .rating-badge {
+    background: #fef3c7;
+    color: #b45309;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .dest-btns {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .dest-btn {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    color: #334155;
+    padding: 0.35rem 0.45rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .dest-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: var(--primary);
+  }
+
+  .dest-btn.primary-action {
+    background: var(--primary-subtle);
+    color: var(--primary-dark);
+    border-color: #99f6e4;
+  }
+
+  /* Quick Utility Widgets */
+  .tools-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .widget-box {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .widget-box h5 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .widget-row {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .widget-input {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    background: #ffffff;
+    outline: none;
+    font-family: inherit;
+  }
+
+  .widget-input:focus {
+    border-color: var(--primary);
+  }
+
+  .widget-btn {
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .widget-btn:hover {
+    background: #334155;
+  }
+
+  /* --- Right Panel: Concierge Canvas & Media Viewer --- */
+  .canvas-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f8fafc;
+    overflow: hidden;
+  }
+
+  .feed-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* Hero / Welcome Banner */
+  .hero-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d9488 0%, #06b6d4 50%, #f59e0b 100%);
+  }
+
+  .hero-card h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 800px;
+  }
+
+  .capability-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.25rem;
+  }
+
+  .cap-chip {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  /* Concierge Activity Entries */
+  .activity-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* User query card */
+  .user-activity {
+    align-self: flex-end;
+    max-width: 75%;
+    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+    color: #ffffff;
+    border-radius: 16px 16px 4px 16px;
+    padding: 0.9rem 1.25rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.18);
+  }
+
+  /* Concierge reply card */
+  .agent-activity {
+    align-self: flex-start;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .agent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.65rem;
+  }
+
+  .agent-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .agent-avatar {
+    width: 32px;
+    height: 32px;
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    color: #0d9488;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .agent-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .agent-meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Content Text Formatting */
+  .content-body {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #1e293b;
+  }
+
+  .content-body p { margin-bottom: 0.65rem; }
+  .content-body p:last-child { margin-bottom: 0; }
+  .content-body strong { color: #0f172a; font-weight: 700; }
+  .content-body ul, .content-body ol { margin: 0.4rem 0 0.8rem 1.4rem; }
+  .content-body li { margin-bottom: 0.35rem; }
+
+  /* Embedded Luxury Media Cards */
+  .media-showcase-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Video Preview Card */
+  .video-card {
+    background: #0f172a;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid #334155;
+    position: relative;
+  }
+
+  .video-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: rgba(30, 41, 59, 0.8);
+    border-bottom: 1px solid #334155;
+    color: #f8fafc;
+  }
+
+  .video-badge {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .video-card video {
+    width: 100%;
+    max-height: 440px;
+    object-fit: cover;
+    display: block;
+    background: #000;
+  }
+
+  .media-link-btn {
+    background: rgba(255,255,255,0.15);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background 0.15s ease;
+  }
+
+  .media-link-btn:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* Postcard Image Card */
+  .postcard-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .postcard-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .postcard-badge {
+    background: #ccfbf1;
+    color: #0f766e;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .postcard-card img {
+    width: 100%;
+    max-height: 440px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Loading State */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 0;
+  }
+
+  .typing-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+  }
+  .typing-indicator .dot:nth-child(1) { animation-delay: -0.32s; }
+  .typing-indicator .dot:nth-child(2) { animation-delay: -0.16s; }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+  }
+
+  /* --- Bottom Action & Prompt Dock --- */
+  .dock-container {
+    background: #ffffff;
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1.75rem 1.1rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.02);
+  }
+
+  .pill-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .pill-row::-webkit-scrollbar { display: none; }
+
+  .action-chip {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    color: #334155;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .action-chip:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    transform: translateY(-1px);
+  }
+
+  .action-chip.video-chip {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #b45309;
+  }
+
+  .action-chip.video-chip:hover {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+  }
+
+  .prompt-form {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .prompt-input-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .prompt-input {
+    width: 100%;
+    padding: 0.85rem 1.15rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    background: #f8fafc;
+    transition: all 0.15s ease;
+  }
+
+  .prompt-input:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+  }
+
+  .btn-send {
+    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+    color: #ffffff;
+    border: none;
+    padding: 0.85rem 1.35rem;
+    border-radius: var(--radius-md);
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    box-shadow: 0 4px 10px rgba(13, 148, 136, 0.25);
+    transition: all 0.15s ease;
+  }
+
+  .btn-send:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(13, 148, 136, 0.35);
+  }
+
+  .btn-video-quick {
+    background: #fef3c7;
+    border: 1.5px solid #fde68a;
+    color: #b45309;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s ease;
+  }
+
+  .btn-video-quick:hover {
+    background: #fde68a;
+    color: #78350f;
+  }
+
+  /* A2UI Component Styles */
+  .a2ui-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">🧭</div>
+    <div class="brand-text">
+      <h1>Wanderlust Travel Studio & Concierge</h1>
+      <p>Autonomous Agent Engine • Vertex AI Omni Video • Gemini Postcards • Live Weather & FX</p>
+    </div>
+  </div>
+  <div class="header-actions">
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span>Agent Engine Online</span>
+    </div>
+  </div>
+</header>
+
+<div class="app-container">
+
+  <!-- Left Studio & Tools Panel -->
+  <aside class="studio-panel">
+
+    <!-- Omni Video & Postcard Media Studio -->
+    <div>
+      <div class="section-label">
+        <span class="material-symbols-outlined" style="font-size: 1rem; color: #f59e0b;">videocam</span>
+        <span>Omni Media Studio</span>
+      </div>
+      <div class="creator-card">
+        <div class="creator-header">
+          <h3>Generate Cinematic Video</h3>
+          <span class="badge">Gemini Omni Flash</span>
+        </div>
+        <p>Generate a 5-second cinematic motion video clip of any destination in the global region and publish directly to Cloud Storage.</p>
+        <div class="creator-input-group">
+          <input id="videoDestinationInput" placeholder="e.g. Kyoto Arashiyama Bamboo Grove">
+          <button class="btn-creator" onclick="triggerVideoCreation()">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">movie</span>
+            <span>Render</span>
+          </button>
+        </div>
+        <div class="creator-actions-row">
+          <button class="btn-sub-action" onclick="triggerPostcardCreation()">
+            🎨 Scenic Postcard
+          </button>
+          <button class="btn-sub-action" onclick="triggerVisualItinerary()">
+            🗺️ Itinerary + Visuals
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Destination Catalog with 1-Click Action Hub -->
+    <div>
+      <div class="section-label">
+        <span class="material-symbols-outlined" style="font-size: 1rem;">explore</span>
+        <span>Featured Destination Hub</span>
+      </div>
+      <div class="destination-grid">
+
+        <!-- Tokyo -->
+        <div class="dest-card">
+          <div class="dest-header">
+            <div class="dest-title-group">
+              <h4>🗼 Tokyo, Japan</h4>
+              <p>Futuristic sights, historic shrines & cuisine</p>
+            </div>
+            <div class="rating-badge">★ 4.9</div>
+          </div>
+          <div class="dest-btns">
+            <button class="dest-btn primary-action" onclick="sendPrompt('Plan a 3-day itinerary for Tokyo with sights and generate scenic postcard')">
+              🗺️ Itinerary
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('Generate a short video preview of Shibuya Crossing in Tokyo')">
+              🎬 Video
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('What is the weather in Tokyo right now and 3-day forecast?')">
+              ⛅ Weather
+            </button>
+          </div>
+        </div>
+
+        <!-- Paris -->
+        <div class="dest-card">
+          <div class="dest-header">
+            <div class="dest-title-group">
+              <h4>🥐 Paris, France</h4>
+              <p>Iconic architecture, museums & cafes</p>
+            </div>
+            <div class="rating-badge">★ 4.8</div>
+          </div>
+          <div class="dest-btns">
+            <button class="dest-btn primary-action" onclick="sendPrompt('Plan a 2-day cultural itinerary in Paris with sights and generate scenic postcard')">
+              🗺️ Itinerary
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('Generate a short cinematic video preview of the Eiffel Tower in Paris')">
+              🎬 Video
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('Check Paris weather and suggest packing list')">
+              ⛅ Weather
+            </button>
+          </div>
+        </div>
+
+        <!-- Rome -->
+        <div class="dest-card">
+          <div class="dest-header">
+            <div class="dest-title-group">
+              <h4>🏛️ Rome, Italy</h4>
+              <p>Ancient Colosseum, squares & trattorias</p>
+            </div>
+            <div class="rating-badge">★ 4.9</div>
+          </div>
+          <div class="dest-btns">
+            <button class="dest-btn primary-action" onclick="sendPrompt('Plan a 3-day historic itinerary for Rome with sights and generate scenic postcard')">
+              🗺️ Itinerary
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('Generate a short video preview of the Colosseum in Rome')">
+              🎬 Video
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('Check weather in Rome')">
+              ⛅ Weather
+            </button>
+          </div>
+        </div>
+
+        <!-- Kyoto -->
+        <div class="dest-card">
+          <div class="dest-header">
+            <div class="dest-title-group">
+              <h4>⛩️ Kyoto, Japan</h4>
+              <p>Zen gardens, bamboo forests & tea houses</p>
+            </div>
+            <div class="rating-badge">★ 4.9</div>
+          </div>
+          <div class="dest-btns">
+            <button class="dest-btn primary-action" onclick="sendPrompt('Plan a relaxing 2-day itinerary for Kyoto with sights and generate scenic postcard')">
+              🗺️ Itinerary
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('Generate a short video preview of Kyoto Arashiyama Bamboo Grove')">
+              🎬 Video
+            </button>
+            <button class="dest-btn" onclick="sendPrompt('Check weather in Kyoto')">
+              ⛅ Weather
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Utilities -->
+    <div class="tools-section">
+      <div class="section-label">
+        <span class="material-symbols-outlined" style="font-size: 1rem;">payments</span>
+        <span>Instant Currency & Weather</span>
+      </div>
+      <div class="widget-box">
+        <h5>💱 Currency Exchange (ECB Live)</h5>
+        <div class="widget-row">
+          <input id="fxAmount" class="widget-input" placeholder="Amount" value="500" style="max-width: 75px;">
+          <input id="fxFrom" class="widget-input" placeholder="From" value="USD" style="max-width: 60px; text-transform: uppercase;">
+          <input id="fxTo" class="widget-input" placeholder="To" value="JPY" style="max-width: 60px; text-transform: uppercase;">
+          <button class="widget-btn" onclick="triggerCurrencyConvert()">Convert</button>
+        </div>
+      </div>
+      <div class="widget-box">
+        <h5>⛅ Weather & Packing Advice</h5>
+        <div class="widget-row">
+          <input id="weatherCity" class="widget-input" placeholder="Enter City (e.g. Barcelona, London)">
+          <button class="widget-btn" onclick="triggerWeatherLookup()">Forecast</button>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Right Concierge Canvas & Media Viewer -->
+  <main class="canvas-panel">
+
+    <div class="feed-scroll" id="feed">
+      <!-- Welcome Hero Card -->
+      <div class="hero-card">
+        <h2>
+          <span>🧭 Welcome to Wanderlust Travel Studio!</span>
+        </h2>
+        <p>
+          I am your autonomous travel concierge connected directly to your deployed Agent Engine. I build curated itineraries backed by Firestore, check live forecasts with Open-Meteo, convert budgets using European Central Bank rates, execute calculations in a secure Python sandbox, remember your travel tastes with Vertex AI Memory Bank, and generate <strong>photorealistic postcards</strong> and <strong>cinematic video previews</strong> using Google's <code>gemini-omni-flash-preview</code>.
+        </p>
+        <div class="capability-chips">
+          <span class="cap-chip">📍 Curated Firestore Catalog</span>
+          <span class="cap-chip">🎬 Gemini Omni Video (Global)</span>
+          <span class="cap-chip">🎨 Gemini Image Gen</span>
+          <span class="cap-chip">⛅ Live Weather API</span>
+          <span class="cap-chip">💱 Live Currency Exchange</span>
+          <span class="cap-chip">🧠 Vertex AI Memory Bank</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Action Dock & Prompt Bar -->
+    <div class="dock-container">
+      <div class="pill-row">
+        <button type="button" class="action-chip video-chip" onclick="sendPrompt('Generate a short cinematic video preview of the Eiffel Tower in Paris')">
+          <span>🎬</span>
+          <span>Generate Eiffel Tower Video Preview</span>
+        </button>
+        <button type="button" class="action-chip video-chip" onclick="sendPrompt('Generate a short cinematic video preview of Kyoto Arashiyama Bamboo Grove')">
+          <span>🎬</span>
+          <span>Generate Kyoto Bamboo Grove Video</span>
+        </button>
+        <button type="button" class="action-chip" onclick="sendPrompt('Plan a 3-day cultural itinerary in Tokyo with sights and generate scenic postcard')">
+          <span>🗼</span>
+          <span>Tokyo 3-Day Plan + Visual Postcard</span>
+        </button>
+        <button type="button" class="action-chip" onclick="sendPrompt('Plan a 2-day Rome itinerary with sights and generate scenic postcard')">
+          <span>🏛️</span>
+          <span>Rome 2-Day Plan + Visual Postcard</span>
+        </button>
+      </div>
+
+      <form class="prompt-form" id="promptForm">
+        <div class="prompt-input-wrapper">
+          <input id="promptInput" class="prompt-input" placeholder="Ask for an itinerary, video preview, scenic postcard, weather, or budget…" autocomplete="off" autofocus>
+        </div>
+        <button type="button" class="btn-video-quick" onclick="quickVideoPrompt()" title="Generate short video for entered destination">
+          <span class="material-symbols-outlined" style="font-size: 1.15rem;">videocam</span>
+          <span>Video</span>
+        </button>
+        <button type="submit" class="btn-send">
+          <span class="material-symbols-outlined" style="font-size: 1.15rem;">send</span>
+          <span>Send</span>
+        </button>
+      </form>
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+const feed = document.getElementById("feed");
+const promptForm = document.getElementById("promptForm");
+const promptInput = document.getElementById("promptInput");
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function renderInlineMarkdown(str) {
+  return str
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.*?)\*/g, "<em>$1</em>")
+    .replace(/`([^`]+)`/g, "<code style='background: #e2e8f0; padding: 2px 5px; border-radius: 4px; font-size: 0.88em; color: #0f766e;'>$1</code>");
+}
+
+function formatMarkdown(text) {
+  if (!text) return "";
+  const lines = text.split("\n");
+  let html = "";
+  let inList = false;
+
+  for (let line of lines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
+      if (!inList) { html += "<ul>"; inList = true; }
+      const itemText = escapeHtml(trimmed.substring(2));
+      html += `<li>${renderInlineMarkdown(itemText)}</li>`;
+    } else {
+      if (inList) { html += "</ul>"; inList = false; }
+      if (trimmed === "") {
+        html += "<br>";
+      } else {
+        html += `<p>${renderInlineMarkdown(escapeHtml(trimmed))}</p>`;
+      }
+    }
+  }
+  if (inList) html += "</ul>";
+  return html;
+}
+
+// Automatically detect image & video URLs in agent responses and build rich media cards
+function extractMedia(text) {
+  const images = [];
+  const videos = [];
+
+  // Match URLs ending in image extensions or video extensions
+  const urlRegex = /(https?:\/\/[^\s"'<>]+\.(mp4|webm|jpg|jpeg|png|webp)(\?[^\s"'<>]*)?)/gi;
+  let match;
+  while ((match = urlRegex.exec(text)) !== null) {
+    const url = match[1];
+    const ext = match[2].toLowerCase();
+    if (ext === "mp4" || ext === "webm" || url.includes("/videos/")) {
+      if (!videos.includes(url)) videos.push(url);
+    } else {
+      if (!images.includes(url)) images.push(url);
+    }
+  }
+
+  // Also check for explicit markdown images ![alt](url)
+  const mdImgRegex = /!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/gi;
+  while ((match = mdImgRegex.exec(text)) !== null) {
+    const url = match[2];
+    if (url.includes(".mp4") || url.includes("/videos/")) {
+      if (!videos.includes(url)) videos.push(url);
+    } else {
+      if (!images.includes(url)) images.push(url);
+    }
+  }
+
+  return { images, videos };
+}
+
+function renderMediaCards(container, images, videos) {
+  if (!images.length && !videos.length) return;
+
+  const mediaContainer = el("div", "media-showcase-container");
+
+  // Render Videos
+  for (const videoUrl of videos) {
+    const card = el("div", "video-card");
+    const header = el("div", "video-card-header");
+    const badge = el("div", "video-badge");
+    badge.innerHTML = `<span class="material-symbols-outlined" style="font-size: 0.95rem;">movie</span><span>Gemini Omni Video</span>`;
+
+    const link = el("a", "media-link-btn");
+    link.href = videoUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.innerHTML = `<span class="material-symbols-outlined" style="font-size: 0.9rem;">open_in_new</span><span>Full Video</span>`;
+
+    header.appendChild(badge);
+    header.appendChild(link);
+    card.appendChild(header);
+
+    const videoEl = document.createElement("video");
+    videoEl.src = videoUrl;
+    videoEl.controls = true;
+    videoEl.autoplay = true;
+    videoEl.loop = true;
+    videoEl.muted = true;
+    videoEl.playsInline = true;
+    card.appendChild(videoEl);
+
+    mediaContainer.appendChild(card);
+  }
+
+  // Render Images
+  for (const imgUrl of images) {
+    const card = el("div", "postcard-card");
+    const header = el("div", "postcard-card-header");
+    const badge = el("div", "postcard-badge");
+    badge.innerHTML = `<span class="material-symbols-outlined" style="font-size: 0.95rem;">photo_camera</span><span>Scenic Postcard</span>`;
+
+    const link = el("a", "media-link-btn");
+    link.href = imgUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.style.color = "#0f766e";
+    link.style.background = "#ccfbf1";
+    link.innerHTML = `<span class="material-symbols-outlined" style="font-size: 0.9rem;">open_in_new</span><span>HD Image</span>`;
+
+    header.appendChild(badge);
+    header.appendChild(link);
+    card.appendChild(header);
+
+    const imgEl = document.createElement("img");
+    imgEl.src = imgUrl;
+    imgEl.alt = "Travel Destination Postcard";
+    imgEl.loading = "lazy";
+    card.appendChild(imgEl);
+
+    mediaContainer.appendChild(card);
+  }
+
+  container.appendChild(mediaContainer);
+}
+
+function appendUserCard(text) {
+  const act = el("div", "activity-card");
+  const bubble = el("div", "user-activity", text);
+  act.appendChild(bubble);
+  feed.appendChild(act);
+  feed.scrollTop = feed.scrollHeight;
+}
+
+function appendAgentCard() {
+  const act = el("div", "activity-card");
+  const card = el("div", "agent-activity");
+
+  const header = el("div", "agent-header");
+  const left = el("div", "agent-header-left");
+  const avatar = el("div", "agent-avatar", "🧭");
+  const nameBox = el("div", null);
+  const name = el("div", "agent-name", "Wanderlust Concierge");
+  const meta = el("div", "agent-meta", "Agent Engine • Vertex AI");
+  nameBox.appendChild(name);
+  nameBox.appendChild(meta);
+  left.appendChild(avatar);
+  left.appendChild(nameBox);
+  header.appendChild(left);
+  card.appendChild(header);
+
+  const body = el("div", "content-body");
+  body.innerHTML = `
+    <div class="typing-indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <span style="font-size: 0.85rem; color: var(--text-muted); margin-left: 6px;">Consulting travel guides, generating media & checking services...</span>
+    </div>
+  `;
+  card.appendChild(body);
+
+  act.appendChild(card);
+  feed.appendChild(act);
+  feed.scrollTop = feed.scrollHeight;
+  return body;
+}
+
+// A2UI Support
+function boundStr(v) {
+  if (v == null) return "";
+  if (typeof v === "string") return v;
+  if (typeof v.literalString === "string") return v.literalString;
+  return "";
+}
+
+function childIds(props) {
+  const ids = [];
+  if (props && typeof props.child === "string") ids.push(props.child);
+  const ch = props && props.children;
+  if (ch && Array.isArray(ch.explicitList)) {
+    for (const c of ch.explicitList) if (typeof c === "string") ids.push(c);
+  }
+  return ids;
+}
+
+function buildNode(id, comps, seen) {
+  if (!id || seen.has(id)) return null;
+  seen.add(id);
+  const spec = comps[id];
+  if (!spec || typeof spec !== "object") return null;
+  const type = Object.keys(spec)[0];
+  const props = spec[type] || {};
+  const kids = () => childIds(props).map(cid => buildNode(cid, comps, seen)).filter(Boolean);
+
+  if (type === "Text") {
+    const p = el("p", null, boundStr(props.text));
+    if (props.usageHint === "H1") p.style.fontSize = "1.25rem", p.style.fontWeight = "700";
+    else if (props.usageHint === "H2") p.style.fontSize = "1.1rem", p.style.fontWeight = "700";
+    return p;
+  }
+  if (type === "Image") {
+    const img = el("img", null);
+    img.src = boundStr(props.url);
+    img.style.maxWidth = "100%";
+    img.style.borderRadius = "8px";
+    return img;
+  }
+  if (type === "Card") {
+    const c = el("div", "a2ui-card");
+    kids().forEach(k => c.appendChild(k));
+    return c;
+  }
+  if (type === "Column" || type === "Row") {
+    const d = el("div", null);
+    d.style.display = "flex";
+    d.style.flexDirection = type === "Column" ? "column" : "row";
+    d.style.gap = "0.5rem";
+    kids().forEach(k => d.appendChild(k));
+    return d;
+  }
+  const fallback = el("div", null);
+  kids().forEach(k => fallback.appendChild(k));
+  return fallback;
+}
+
+function renderSurface(messages, target) {
+  const comps = {};
+  for (const m of messages) {
+    const su = m.surfaceUpdate;
+    if (su && Array.isArray(su.components)) {
+      for (const c of su.components) if (c && c.id && c.component) comps[c.id] = c.component;
+    }
+  }
+  const roots = Object.keys(comps).filter(id => !Object.values(comps).some(c => {
+    const t = Object.keys(c)[0];
+    return childIds(c[t] || {}).includes(id);
+  }));
+  const seen = new Set();
+  let drew = false;
+  for (const r of roots) {
+    const node = buildNode(r, comps, seen);
+    if (node) { target.appendChild(node); drew = true; }
+  }
+  return drew;
+}
+
+function renderReply(bodyEl, parts) {
+  bodyEl.innerHTML = "";
+  const texts = parts.filter(p => p && (p.kind === "text" || (!p.kind && p.text))).map(p => p.text || "");
+  const a2ui = parts.filter(p => p && p.kind === "a2ui" && p.data).map(p => p.data);
+
+  const fullText = texts.join("\n").trim();
+  if (fullText) {
+    const textDiv = el("div", null);
+    textDiv.innerHTML = formatMarkdown(fullText);
+    bodyEl.appendChild(textDiv);
+
+    // Extract & render media cards (videos and postcards)
+    const { images, videos } = extractMedia(fullText);
+    renderMediaCards(bodyEl, images, videos);
+  }
+
+  if (a2ui.length) {
+    const richWrapper = el("div", "a2ui-card");
+    if (!renderSurface(a2ui, richWrapper)) {
+      richWrapper.textContent = "(A2UI Card rendered)";
+    }
+    bodyEl.appendChild(richWrapper);
+  }
+
+  if (!bodyEl.childNodes.length) bodyEl.textContent = "(No response received from agent)";
+  feed.scrollTop = feed.scrollHeight;
+}
+
+async function handleSendMessage(text) {
+  if (!text) return;
+  appendUserCard(text);
+  promptInput.value = "";
+
+  const replyBody = appendAgentCard();
+
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+    const raw = await res.text();
+    let data;
+    try { data = JSON.parse(raw); }
+    catch { throw new Error(`Server returned non-JSON (HTTP ${res.status}). ${raw.slice(0, 300)}`); }
+    renderReply(replyBody, data.parts || []);
+  } catch (e) {
+    replyBody.innerHTML = `<span style="color: #ef4444; font-weight: 700;">Error: ${escapeHtml(e.message)}</span>`;
+  }
+}
+
+function sendPrompt(text) {
+  promptInput.value = text;
+  handleSendMessage(text);
+}
+
+function triggerVideoCreation() {
+  const dest = document.getElementById("videoDestinationInput").value.trim() || "Kyoto Arashiyama Bamboo Grove";
+  sendPrompt(`Generate a short cinematic video preview of ${dest} using gemini-omni-flash-preview`);
+}
+
+function triggerPostcardCreation() {
+  const dest = document.getElementById("videoDestinationInput").value.trim() || "Eiffel Tower Paris";
+  sendPrompt(`Generate a scenic postcard photo of ${dest} and upload to storage`);
+}
+
+function triggerVisualItinerary() {
+  const dest = document.getElementById("videoDestinationInput").value.trim() || "Tokyo";
+  sendPrompt(`Plan a 3-day itinerary for ${dest} with sights and generate scenic postcard`);
+}
+
+function triggerCurrencyConvert() {
+  const amt = document.getElementById("fxAmount").value.trim() || "500";
+  const from = document.getElementById("fxFrom").value.trim() || "USD";
+  const to = document.getElementById("fxTo").value.trim() || "JPY";
+  sendPrompt(`Convert ${amt} ${from} to ${to} using live exchange rates`);
+}
+
+function triggerWeatherLookup() {
+  const city = document.getElementById("weatherCity").value.trim();
+  if (!city) return;
+  sendPrompt(`Check the current weather and 3-day forecast for ${city} and advise what to pack`);
+}
+
+function quickVideoPrompt() {
+  const text = promptInput.value.trim();
+  if (text) {
+    sendPrompt(`Generate a short video preview of ${text}`);
+  } else {
+    promptInput.value = "Generate a short video preview of Eiffel Tower in Paris";
+    promptInput.focus();
+  }
+}
+
+promptForm.addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  handleSendMessage(promptInput.value.trim());
+});
+</script>
+</body>
+</html>
