@@ -2,6 +2,8 @@
 
 > A personalized, multimodal AI travel planner and concierge built with Google's Agent Development Kit (ADK), deployed on Vertex AI Agent Runtime, and powered by Gemini 2.5 Flash, Gemini Image Generation, and Gemini Omni Flash (`gemini-omni-flash-preview`).
 
+![Wanderlust Concierge Demo](demo.gif)
+
 ---
 
 ## ✨ Features & Capabilities
